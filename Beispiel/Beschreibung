@@ -1,0 +1,26 @@
+Game Generator Blender
+
+Beschriebung:
+
+Mit Hilfe eines Files / Image Dateien soll ein kleines Spiel erzeigt werden.
+Bei der Angabe von einem Textfile und Texturdateien (jpg / png) sollen (Wände / Boden / Spielfigur / Hindernisse) erzeugt werden.
+Das Modul wird in Blender aufgerufen, erzeugt das Spiel und kann danach in Blender als Spiel kompiliert werden.
+
+Aufgaben Pakete:
+
+1. Laden der Textdatei (Spielwelt)
+
+2. Laden der Texturdateien
+
+3. UV Mapping der Spielwelt
+
+4. Laden / generieren der Spielfigur
+
+5. Spielmechanik integrerien
+
+6. Einbindung als Eingabemodul in Blender GUI
+
+7 Quallitätsmanagement / Fehlerbehebung - Errorreporting
+
+
+
