@@ -1,0 +1,45 @@
+import bpy
+import sys
+import csv
+from random import randint
+from mathutils import Vector, Quaternion
+# Create a material.
+mat = bpy.data.materials.new(name = 'my_material')
+ 
+# Set some properties of the material.
+mat.diffuse_color = (1., 1., 1.)
+mat.diffuse_shader = 'LAMBERT'
+mat.diffuse_intensity = 1.0
+mat.specular_color = (1., 1., 1.)
+mat.specular_shader = 'COOKTORR'
+mat.specular_intensity = 0.5
+mat.alpha = 1
+mat.ambient = 1
+with open('input.txt', 'r') as csvfile:
+    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+    x = 0
+    y = 0
+    for row in spamreader:
+        x = x + 2
+        for data in row:
+            y = y + 2
+            if data == "X":
+                bpy.ops.mesh.primitive_cube_add(
+                    radius=1,
+                    view_align=True,
+                    enter_editmode=False,
+                    location=(x, y, 0),
+                    layers=(True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False))
+            elif data == " ":
+                bpy.ops.mesh.primitive_plane_add(
+                    radius=1,
+                    view_align=False,
+                    enter_editmode=False,
+                    location=(x, y, -1),
+                    layers=(True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False))
+            myObject = bpy.context.object
+ 
+            # Assign the material to the cube.
+            mesh = myObject.data
+            mesh.materials.append(mat)  
+        y = 0
