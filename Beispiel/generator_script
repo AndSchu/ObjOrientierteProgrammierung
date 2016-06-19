@@ -22,11 +22,14 @@ def setMaterial(ob, mat):
     me.materials.append(mat)
 
 
+
+
+
 red = makeMaterial('Red', (1,0,0), (1,1,1), 1)
 blue = makeMaterial('BlueSemi', (0,0,1), (0.5,0.5,0), 0.5)
 
 
-with open('input.txt', 'r') as csvfile:
+with open('E:\input.txt', 'r') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
     x = 0
     y = 0 
@@ -40,4 +43,43 @@ with open('input.txt', 'r') as csvfile:
             elif data == " ":
                 bpy.ops.mesh.primitive_plane_add(radius=1, view_align=False, enter_editmode=False, location=(x, y, -1), layers=(True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False))
                 setMaterial(bpy.context.object, blue)
+            elif data == "P":  
+                bpy.ops.mesh.primitive_uv_sphere_add(size=0.75, view_align=False, enter_editmode=False, location=(x, y, 0), layers=(True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False))
+                bpy.ops.logic.sensor_add(type="KEYBOARD", name="Forward", object="Sphere")
+                bpy.context.object.game.sensors['Forward'].key = "UP_ARROW"
+                bpy.context.object.game.sensors['Forward'].use_tap = True
+                bpy.ops.logic.controller_add(type='LOGIC_AND', name="Forward", object="Sphere")
+                bpy.ops.logic.actuator_add(type="MOTION", name="Forward", object="Sphere")
+                bpy.context.object.game.actuators['Forward'].offset_location[0] = 1
+                bpy.context.object.game.sensors['Forward'].link(bpy.context.object.game.controllers['Forward'])
+                bpy.context.object.game.actuators['Forward'].link(bpy.context.object.game.controllers['Forward'])
+
+
+                bpy.ops.logic.sensor_add(type="KEYBOARD", name="Back", object="Sphere")
+                bpy.context.object.game.sensors['Back'].key = "DOWN_ARROW"
+                bpy.context.object.game.sensors['Back'].use_tap = True
+                bpy.ops.logic.controller_add(type='LOGIC_AND', name="Back", object="Sphere")
+                bpy.ops.logic.actuator_add(type="MOTION", name="Back", object="Sphere")
+                bpy.context.object.game.actuators['Back'].offset_location[0] = -1
+                bpy.context.object.game.sensors['Back'].link(bpy.context.object.game.controllers['Back'])
+                bpy.context.object.game.actuators['Back'].link(bpy.context.object.game.controllers['Back'])
+                
+                bpy.ops.logic.sensor_add(type="KEYBOARD", name="Left", object="Sphere")
+                bpy.context.object.game.sensors['Left'].key = "LEFT_ARROW"
+                bpy.context.object.game.sensors['Left'].use_tap = True
+                bpy.ops.logic.controller_add(type='LOGIC_AND', name="Left", object="Sphere")
+                bpy.ops.logic.actuator_add(type="MOTION", name="Left", object="Sphere")
+                bpy.context.object.game.actuators['Left'].offset_location[1] = 1
+                bpy.context.object.game.sensors['Left'].link(bpy.context.object.game.controllers['Left'])
+                bpy.context.object.game.actuators['Left'].link(bpy.context.object.game.controllers['Left'])
+                
+                bpy.ops.logic.sensor_add(type="KEYBOARD", name="Right", object="Sphere")
+                bpy.context.object.game.sensors['Right'].key = "RIGHT_ARROW"
+                bpy.context.object.game.sensors['Right'].use_tap = True
+                bpy.ops.logic.controller_add(type='LOGIC_AND', name="Right", object="Sphere")
+                bpy.ops.logic.actuator_add(type="MOTION", name="Right", object="Sphere")
+                bpy.context.object.game.actuators['Right'].offset_location[1] = -1
+                bpy.context.object.game.sensors['Right'].link(bpy.context.object.game.controllers['Right'])
+                bpy.context.object.game.actuators['Right'].link(bpy.context.object.game.controllers['Right'])
+                            
         y = 0
